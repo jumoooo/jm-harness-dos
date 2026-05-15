@@ -1,0 +1,44 @@
+<!-- harness-template
+source: .harness/60_templates/artifacts/handoff.json
+template_version: 1.0.0
+policy: core-locked
+-->
+> 이 파일은 work-order 인스턴스 템플릿입니다.
+> 스키마 기준(SSOT): `.ai/templates/work-order-schema.md`
+<!-- CORE:START -->
+{
+  "schema_version": "2026-04-v1",
+  "task_id": "TASK_ID_PLACEHOLDER",
+  "title": "WORK_ORDER_TITLE",
+  "from": "PLAN_LLM",
+  "to": "WORK_LLM",
+  "created": "YYYY-MM-DD",
+  "plan_ref": ".ai/plans/drafts/YYYY-MM-DD_slug.md",
+  "scope": "ops",
+  "files_to_create": [],
+  "files_to_rename": [],
+  "files_to_modify": [],
+  "non_goals": [],
+  "acceptance_criteria": [],
+  "evidence_paths": {
+    "file_tree": ".ai/tasks/TASK_ID/evidence/001_file_tree.txt",
+    "git_log": ".ai/tasks/TASK_ID/evidence/002_git_log.txt",
+    "ref_check": ".ai/tasks/TASK_ID/evidence/003_ref_check.txt"
+  },
+  "commits": []
+}
+<!-- CORE:END -->
+<!-- ENV:START -->
+{
+  "model": "ENV_DEFAULT_MODEL",
+  "project_root": "ENV_PROJECT_ROOT",
+  "artifact_root": "ENV_ARTIFACT_ROOT",
+  "command_prefix": "/",
+  "llm_role_binding": {
+    "plan": "ENV_PLAN_LLM",
+    "work": "ENV_WORK_LLM",
+    "verify": "ENV_VERIFY_LLM",
+    "final_check": "ENV_FINAL_CHECK_LLM"
+  }
+}
+<!-- ENV:END -->

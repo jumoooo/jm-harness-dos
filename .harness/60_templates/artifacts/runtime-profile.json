@@ -1,0 +1,57 @@
+<!-- harness-template
+source: .harness/60_templates/artifacts/runtime-profile.json
+template_version: 1.0.0
+policy: core-locked
+-->
+<!-- CORE:START -->
+{
+  "schema_version": "2026-04-v1",
+  "profile_name": "PROFILE_NAME",
+  "mode": "sequential",
+  "single_llm_mode": false,
+  "stages": [
+    {
+      "stage": "plan",
+      "llm": "PLAN_LLM",
+      "model": "PLAN_MODEL",
+      "entry": "PLAN_ENTRY",
+      "output": ".ai/plans/drafts/"
+    },
+    {
+      "stage": "work",
+      "llm": "WORK_LLM",
+      "model": "WORK_MODEL",
+      "entry": "WORK_ENTRY",
+      "output": "WORK_OUTPUT"
+    },
+    {
+      "stage": "verify",
+      "llm": "VERIFY_LLM",
+      "model": "VERIFY_MODEL",
+      "entry": "VERIFY_ENTRY",
+      "output": "VERIFY_OUTPUT"
+    },
+    {
+      "stage": "final_check",
+      "llm": "FINAL_CHECK_LLM",
+      "model": "FINAL_CHECK_MODEL",
+      "entry": "FINAL_CHECK_ENTRY",
+      "output": "PASS | FAIL"
+    }
+  ]
+}
+<!-- CORE:END -->
+<!-- ENV:START -->
+{
+  "model": "ENV_DEFAULT_MODEL",
+  "project_root": "ENV_PROJECT_ROOT",
+  "artifact_root": "ENV_ARTIFACT_ROOT",
+  "command_prefix": "/",
+  "llm_role_binding": {
+    "plan": "ENV_PLAN_LLM",
+    "work": "ENV_WORK_LLM",
+    "verify": "ENV_VERIFY_LLM",
+    "final_check": "ENV_FINAL_CHECK_LLM"
+  }
+}
+<!-- ENV:END -->

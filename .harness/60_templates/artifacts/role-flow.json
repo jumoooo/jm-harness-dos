@@ -1,0 +1,93 @@
+﻿<!-- harness-template
+source: .harness/60_templates/artifacts/role-flow.json
+template_version: 1.0.0
+policy: core-locked
+-->
+<!-- CORE:START -->
+{
+  "schema_version": "2026-04-v1",
+  "profile_name": "server-pulse-multi-llm",
+  "mode": "sequential",
+  "single_llm_mode": false,
+  "stages": [
+    {
+      "stage": "plan",
+      "llm": "claude",
+      "model": "claude-sonnet-4-6",
+      "entry": "/cm_run → Plan 단계",
+      "output": ".ai/plans/drafts/",
+      "handoff_skill": "root-handoff-packager",
+      "handoff_target": ".ai/handoffs/YYYY-MM-DD_plan-to-codex/"
+    },
+    {
+      "stage": "work",
+      "llm": "codex",
+      "model": "gpt-5.4",
+      "entry": ".codex/agents/ (핸드오프 수신)",
+      "output": "구현 산출물",
+      "handoff_skill": null
+    },
+    {
+      "stage": "verify",
+      "llm": "codex",
+      "model": "gpt-5.4",
+      "entry": ".codex/agents/reviewer.toml + guardian agents",
+      "output": "verify evidence",
+      "handoff_skill": "root-handoff-packager",
+      "handoff_target": ".ai/handoffs/YYYY-MM-DD_codex-to-claude/"
+    },
+    {
+      "stage": "final_check",
+      "llm": "claude",
+      "model": "claude-sonnet-4-6",
+      "entry": "/check-gate (핸드오프 수신)",
+      "output": "PASS | FAIL 판정",
+      "handoff_skill": null
+    }
+  ],
+  "guardians": {
+    "plan_exit": ["policy-critic (.claude/agents/policy-critic.md)"],
+    "work_scope": ["scope-referee (.codex/agents/scope_referee.toml)"],
+    "verify_exit": ["harness-guardian (.codex/agents/harness_guardian.toml)"],
+    "final_check": ["harness-guardian (.claude/agents/harness-guardian.md)"]
+  },
+  "final_judge": "claude",
+  "integration_owner": "claude",
+  "conflict_resolution": {
+    "scope_exceeded_by_codex": "escalate_to_claude_via_handoff",
+    "final_check_fail_max_retries": 2,
+    "hitl_trigger": "2_consecutive_fails"
+  },
+  "artifact_roots": [".ai/"],
+  "guardian_policy_ref": ".harness/10_bootstrap/guardian-installation-strategy.md",
+  "scoring_policy_ref": ".harness/50_scoring/scoring-framework.md",
+  "handoff_skill_ref": ".cursor/skills/root-handoff-packager/SKILL.md",
+  "codex_plugin_cc": {
+    "role": "auxiliary",
+    "allowed": ["/codex:review", "/codex:adversarial-review", "/codex:rescue (단발)"],
+    "prohibited": [
+      "Work 단계 전체 대체",
+      "Verify + evidence 수집 대체",
+      ".ai/handoffs/ MD+JSON 핸드오프 대체",
+      "장기 실행 SoT를 Claude 대화 상태에 두는 것"
+    ],
+    "primary_execution": "별도 Codex CLI/데스크탑 세션",
+    "note": "codex-plugin-cc는 Claude 안에서 Codex를 프록시 호출하는 어댑터. 실행면이 Claude 대화에 종속되므로 주 실행면으로 사용 불가."
+  }
+}
+<!-- CORE:END -->
+<!-- ENV:START -->
+{
+  "model": "ENV_DEFAULT_MODEL",
+  "project_root": "ENV_PROJECT_ROOT",
+  "artifact_root": "ENV_ARTIFACT_ROOT",
+  "command_prefix": "/",
+  "llm_role_binding": {
+    "plan": "ENV_PLAN_LLM",
+    "work": "ENV_WORK_LLM",
+    "verify": "ENV_VERIFY_LLM",
+    "final_check": "ENV_FINAL_CHECK_LLM"
+  }
+}
+<!-- ENV:END -->
+
