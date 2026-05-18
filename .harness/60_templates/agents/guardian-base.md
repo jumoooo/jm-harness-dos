@@ -1,4 +1,4 @@
----
+﻿---
 agent_type: guardian
 name: GUARDIAN_NAME
 mode: ROOT_ORCH
@@ -6,7 +6,10 @@ applies_to:
   - plan
   - work
   - verify
-schema_version: 2026-04-v1
+extends: guardian-base
+trigger: ""
+fail_action: block_and_report
+schema_version: 2026-05-v1
 ---
 
 # Guardian Base Stub
@@ -51,3 +54,11 @@ mode: critique
 
 - 저장소별 guardian 규칙은 파생본에서 보강해요.
 - 이 베이스 스텁에는 공통 역할과 최소 체크리스트만 남겨요.
+
+## 공통 검사 항목 (모든 Guardian 파생본에 적용)
+
+- [ ] **단계 오염**: Plan LLM이 Edit/Write/Bash 실행 시도 -> BLOCK
+- [ ] **금지 액션**: git push, git commit, PR merge 등 Work 전용 액션 -> BLOCK
+- [ ] **rework_count 한계**: rework_count >= 3 -> 자동 중단 + 에스컬레이션
+- [ ] **핸드오프 형식**: work-order.json 필수 필드 누락 -> BLOCK
+
