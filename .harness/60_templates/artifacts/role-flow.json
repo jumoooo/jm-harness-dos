@@ -6,14 +6,14 @@ policy: core-locked
 <!-- CORE:START -->
 {
   "schema_version": "2026-04-v1",
-  "profile_name": "server-pulse-multi-llm",
+  "profile_name": "{project_name}-multi-llm",
   "mode": "sequential",
   "single_llm_mode": false,
   "stages": [
     {
       "stage": "plan",
       "llm": "claude",
-      "model": "claude-sonnet-4-6",
+      "model": "{plan_llm_model}",
       "entry": "/cm_run → Plan 단계",
       "output": ".ai/plans/drafts/",
       "handoff_skill": "root-handoff-packager",
@@ -22,7 +22,7 @@ policy: core-locked
     {
       "stage": "work",
       "llm": "codex",
-      "model": "gpt-5.4",
+      "model": "{work_llm_model}",
       "entry": ".codex/agents/ (핸드오프 수신)",
       "output": "구현 산출물",
       "handoff_skill": null
@@ -30,7 +30,7 @@ policy: core-locked
     {
       "stage": "verify",
       "llm": "codex",
-      "model": "gpt-5.4",
+      "model": "{work_llm_model}",
       "entry": ".codex/agents/reviewer.toml + guardian agents",
       "output": "verify evidence",
       "handoff_skill": "root-handoff-packager",
@@ -39,7 +39,7 @@ policy: core-locked
     {
       "stage": "final_check",
       "llm": "claude",
-      "model": "claude-sonnet-4-6",
+      "model": "{plan_llm_model}",
       "entry": "/check-gate (핸드오프 수신)",
       "output": "PASS | FAIL 판정",
       "handoff_skill": null
@@ -61,7 +61,7 @@ policy: core-locked
   "artifact_roots": [".ai/"],
   "guardian_policy_ref": ".harness/10_bootstrap/guardian-installation-strategy.md",
   "scoring_policy_ref": ".harness/50_scoring/scoring-framework.md",
-  "handoff_skill_ref": ".cursor/skills/root-handoff-packager/SKILL.md",
+  "handoff_skill_ref": ".agents/skills/root-handoff-packager/SKILL.md",
   "codex_plugin_cc": {
     "role": "auxiliary",
     "allowed": ["/codex:review", "/codex:adversarial-review", "/codex:rescue (단발)"],
@@ -90,4 +90,5 @@ policy: core-locked
   }
 }
 <!-- ENV:END -->
+
 

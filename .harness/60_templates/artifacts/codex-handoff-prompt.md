@@ -106,7 +106,7 @@ Co-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>
 | 플레이스홀더 | 출처 |
 |-------------|------|
 | `{{ handoff_id }}` | work-order.json `.handoff_id` |
-| `{{ project_root }}` | 절대 경로 또는 `server-pulse` |
+| `{{ project_root }}` | 절대 경로 또는 `{project_root}` |
 | `{{ task_id }}` | work-order.json 연결 task, 없으면 생략 |
 | `{{ 컨텍스트 }}` | work-order.md `## 배경` 요약 3~5줄 |
 | `{{ TDD RED }}` | 현재 실패 명령 + 예상 에러 구체적으로 (추상 지시 금지) |
@@ -123,4 +123,5 @@ Co-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>
 - command_prefix: 커맨드 접두어를 적어요.
 - llm_role_binding: Plan/Work/Verify/Final Check 담당 LLM 매핑을 적어요.
 <!-- ENV:END -->
+
 

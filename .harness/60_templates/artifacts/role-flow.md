@@ -12,10 +12,10 @@ schema_version: 2026-04-v1
 
 | 단계 | 담당 LLM | 모델 | 진입 자산 |
 |------|---------|------|----------|
-| Plan | Claude | claude-sonnet-4-6 | `/cm_run` → Plan 단계 |
-| Work | Codex | gpt-5.4 | 핸드오프 수신 → `.codex/agents/` |
-| Verify | Codex | gpt-5.4 | `.codex/agents/reviewer.toml` + guardian agents |
-| Final Check | Claude | claude-sonnet-4-6 | 핸드오프 수신 → `/check-gate` |
+| Plan | Claude | {plan_llm_model} | `/cm_run` → Plan 단계 |
+| Work | Codex | {work_llm_model} | 핸드오프 수신 → `.codex/agents/` |
+| Verify | Codex | {work_llm_model} | `.codex/agents/reviewer.toml` + guardian agents |
+| Final Check | Claude | {plan_llm_model} | 핸드오프 수신 → `/check-gate` |
 
 ## 흐름 다이어그램
 
@@ -44,7 +44,7 @@ Claude (Plan)
 
 핸드오프 artifact는 `root-handoff-packager` 스킬을 사용해요.
 
-- 위치: `.cursor/skills/root-handoff-packager/SKILL.md`
+- 위치: `.agents/skills/root-handoff-packager/SKILL.md`
 - 출력: `.ai/handoffs/YYYY-MM-DD_slug/` (MD + JSON 동쌍)
 - 필수 필드: `mode`, `scope`, `handoff`, `verify_log`, `verification`, `evidence`
 - schema_version: `2026-04-v1`
@@ -105,7 +105,7 @@ Claude (Plan)
 - Claude 프로필: `.claude/profiles/global-runtime-profile.md`
 - Codex 프로필: `.codex/profiles/global-runtime-profile.md`
 - 통합 게이트: `.ai/gates/INTEGRATION_GATE.md`
-- 핸드오프 스킬: `.cursor/skills/root-handoff-packager/SKILL.md`
+- 핸드오프 스킬: `.agents/skills/root-handoff-packager/SKILL.md`
 <!-- CORE:END -->
 <!-- ENV:START -->
 - model: 환경별 기본 모델 식별자를 적어요.
@@ -114,4 +114,5 @@ Claude (Plan)
 - command_prefix: 커맨드 접두어를 적어요.
 - llm_role_binding: Plan/Work/Verify/Final Check 담당 LLM 매핑을 적어요.
 <!-- ENV:END -->
+
 
