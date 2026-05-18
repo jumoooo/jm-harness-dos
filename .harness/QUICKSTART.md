@@ -1,4 +1,4 @@
-# .harness 빠른 참조 가이드
+﻿# .harness 빠른 참조 가이드
 
 새 세션에서 `.harness/`를 전부 훑지 않고도 필요한 문서만 바로 열 수 있게 정리해요.
 
@@ -21,7 +21,7 @@
 | 템플릿 기준 | `60_templates/` |
 | **핸드오프 계약 (git_state 포함)** | `20_runtime/handoff-contract.md` |
 | **work-order.json 스키마** | `.ai/templates/work-order-schema.md` |
-| **git dirty-state 훅** | `.claude/hooks/check-dirty-state.ps1` |
+| **git dirty-state 훅** | (권장) 설치 후 직접 생성 — 베이스: `60_templates/hooks/pre-tool-guard-base.md` |
 
 ## 기본적으로 읽지 않는 ARCHIVE 파일
 
@@ -30,3 +30,5 @@
 ## 전체 분류표
 
 전체 파일 분류는 `ACTIVE_FILES.md`를 봐요.
+
+
