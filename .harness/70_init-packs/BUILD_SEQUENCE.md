@@ -62,3 +62,34 @@
 - `.harness/10_bootstrap/setup-guide-plan.md`
 - `.harness/10_bootstrap/setup-guide-work.md`
 - `.harness/10_bootstrap/setup-guide-verify.md`
+## single_llm_mode: true - 단일 LLM 실행 경로
+
+Plan · Work · Verify를 하나의 LLM이 담당하는 경우,
+역할 경계를 **논리적으로 유지하면서** 아래 순서로 진행한다.
+
+### 필수 선언 (각 단계 전)
+
+단계 전환 시 반드시 선언:
+```text
+현재 역할: [Plan / Work / Verify]
+```
+
+### 건너뛸 수 있는 단계
+
+| 단계 | multi_llm 모드 | single_llm 모드 |
+|------|---------------|-----------------|
+| 핸드오프 MD+JSON 생성 | 필수 | 간소화 가능 (`work-order.json`은 유지) |
+| Work LLM 전달 프롬프트 출력 | 필수 | 건너뜀 (바로 Work 단계 진입) |
+| Verify LLM 전달 프롬프트 출력 | 필수 | 건너뜀 (바로 Verify 단계 진입) |
+| FinalCheck 프롬프트 출력 | 필수 | 건너뜀 (바로 FinalCheck 진입) |
+
+### 유지해야 하는 단계 (single_llm에서도 필수)
+
+- `work-order.json` 작성 (`batches`, `acceptance_criteria`, `verification_commands`)
+- scope enforcement: `batches[].files` 외 수정 금지
+- `verification_commands` 실행 + exit_code 기록
+- `score_breakdown` 계산 + `runs.jsonl` 기록
+
+### 역할별 체크리스트
+
+-> `.harness/70_init-packs/ROLE_GUIDE.md` 참조

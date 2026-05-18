@@ -1,4 +1,4 @@
-<!-- harness-template
+﻿<!-- harness-template
 source: .harness/60_templates/artifacts/handoff.json
 template_version: 1.0.0
 policy: core-locked
@@ -7,7 +7,7 @@ policy: core-locked
 > 스키마 기준(SSOT): `.ai/templates/work-order-schema.md`
 <!-- CORE:START -->
 {
-  "schema_version": "2026-04-v1",
+  "schema_version": "2026-05-v1",
   "task_id": "TASK_ID_PLACEHOLDER",
   "title": "WORK_ORDER_TITLE",
   "from": "PLAN_LLM",
@@ -42,3 +42,4 @@ policy: core-locked
   }
 }
 <!-- ENV:END -->
+

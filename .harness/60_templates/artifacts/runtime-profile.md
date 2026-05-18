@@ -1,4 +1,4 @@
-<!-- harness-template
+﻿<!-- harness-template
 source: .harness/60_templates/artifacts/runtime-profile.md
 template_version: 1.0.0
 policy: core-locked
@@ -49,7 +49,7 @@ role_flow_ref: .ai/role-flow.md
 <!-- CORE:END -->
 <!-- ENV:START -->
 ```yaml
-model: claude-sonnet-4-6
+model: {model_name}
 project_root: E:/PROJECT_ROOT
 artifact_root: .ai/
 command_prefix: /
@@ -60,3 +60,4 @@ llm_role_binding:
   final_check: claude
 ```
 <!-- ENV:END -->
+

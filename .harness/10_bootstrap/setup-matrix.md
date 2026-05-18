@@ -1,4 +1,4 @@
-# Setup Matrix - 역할 x LLM 셋업 결정표
+﻿# Setup Matrix - 역할 x LLM 셋업 결정표
 
 ## 이 문서의 용도
 
@@ -26,11 +26,11 @@
 | 역할 | Claude | Codex | Generic LLM |
 |---|---|---|---|
 | Plan | `.md` commands, `.md` agents, `.ps1` hooks, `settings.json` | `.toml` agents, `.js` hooks, `config.toml` | `.md` only |
-|  | `-> claude/as-plan-llm.md` | `-> codex/as-plan-llm.md` | `-> generic-llm/as-any-role.md` |
+|  | 역할별 구체 가이드: `.harness/70_init-packs/ROLE_GUIDE.md` 참조 | 역할별 구체 가이드: `.harness/70_init-packs/ROLE_GUIDE.md` 참조 | 역할별 구체 가이드: `.harness/70_init-packs/ROLE_GUIDE.md` 참조 |
 | Work | `.md` agents, `.ps1` scope hooks, `settings.json` | `.toml` agents, `.js` scope hooks, `hooks.json` | `.md` only |
-|  | `-> claude/as-work-llm.md` | `-> codex/as-work-llm.md` | `-> generic-llm/as-any-role.md` |
+|  | 역할별 구체 가이드: `.harness/70_init-packs/ROLE_GUIDE.md` 참조 | 역할별 구체 가이드: `.harness/70_init-packs/ROLE_GUIDE.md` 참조 | 역할별 구체 가이드: `.harness/70_init-packs/ROLE_GUIDE.md` 참조 |
 | Verify | `.md` check-gate, `.ps1` hooks | `.toml` reviewer, `.js` hooks | `.md` only |
-|  | `-> claude/as-verify-llm.md` | `-> codex/as-verify-llm.md` | `-> generic-llm/as-any-role.md` |
+|  | 역할별 구체 가이드: `.harness/70_init-packs/ROLE_GUIDE.md` 참조 | 역할별 구체 가이드: `.harness/70_init-packs/ROLE_GUIDE.md` 참조 | 역할별 구체 가이드: `.harness/70_init-packs/ROLE_GUIDE.md` 참조 |
 
 ## 셋업 결정 트리
 
@@ -55,3 +55,4 @@
 - LLM별 파일 형식: `llm-format-rules.md`
 - LLM별 진입 가이드: `../70_init-packs/{llm}/README.md`
 - 역할 분리 정책: `../20_runtime/multi-llm-role-policy.md`
+
